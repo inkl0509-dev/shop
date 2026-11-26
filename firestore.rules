@@ -1,0 +1,85 @@
+rules_version = '2';
+// Rules for the ONLINE SHOP. If the Day End Sales Report uses the same Firebase
+// project, keep its "reports" block below too (one rules file per database).
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function signedIn() { return request.auth != null; }
+    function isAdmin() {
+      return signedIn()
+        && exists(/databases/$(database)/documents/users/$(request.auth.uid))
+        && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
+    }
+
+    // Admin list: users/{uid} with role "admin". Only admins can change it.
+    match /users/{uid} {
+      allow read: if signedIn() && (request.auth.uid == uid || isAdmin());
+      allow write: if isAdmin();
+    }
+
+    // Shop name, logo, contact, bank accounts: everyone reads, admin writes
+    match /settings/{id} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // Products: everyone reads, admin writes
+    match /products/{id} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // Ads (banners at the top of the shop): everyone reads, admin writes
+    match /ads/{id} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // Customer profiles: the customer and admins
+    match /customers/{uid} {
+      allow read, write: if signedIn() && (request.auth.uid == uid || isAdmin());
+    }
+
+    // Orders
+    match /orders/{id} {
+      allow read: if signedIn() && (resource.data.uid == request.auth.uid || isAdmin());
+      // Customers create their own order, always starting at "awaiting_payment"
+      allow create: if signedIn()
+        && request.resource.data.uid == request.auth.uid
+        && request.resource.data.status == 'awaiting_payment'
+        && request.resource.data.id == id;
+      // Customers may only move their order to "payment_submitted" (after uploading a receipt).
+      // Everything else (confirm payment, preparing, delivery, cancel) is admin only.
+      allow update: if isAdmin() || (signedIn()
+        && resource.data.uid == request.auth.uid
+        && resource.data.status in ['awaiting_payment', 'payment_rejected']
+        && request.resource.data.status == 'payment_submitted'
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status', 'history', 'receiptAt', 'updatedAt']));
+      allow delete: if isAdmin();
+    }
+
+    // Transfer receipts (image or small PDF), one per order
+    match /receipts/{id} {
+      allow read: if signedIn() && (resource.data.uid == request.auth.uid || isAdmin());
+      allow create, update: if signedIn()
+        && request.resource.data.uid == request.auth.uid
+        && get(/databases/$(database)/documents/orders/$(id)).data.uid == request.auth.uid;
+      allow delete: if isAdmin();
+    }
+
+    // ---- Day End Sales Report (only if it shares this project) ----
+    function pad(n) { return n < 10 ? '0' + string(n) : string(n); }
+    function todayId() {
+      let t = request.time + duration.value(5, 'h');   // Maldives UTC+5
+      return string(t.year()) + '-' + pad(t.month()) + '-' + pad(t.day());
+    }
+    match /reports/{date} {
+      allow read: if signedIn() && (isAdmin() || !exists(/databases/$(database)/documents/customers/$(request.auth.uid)));
+      allow create, update: if signedIn()
+        && !exists(/databases/$(database)/documents/customers/$(request.auth.uid))
+        && request.resource.data.date == date
+        && (isAdmin() || date == todayId());
+      allow delete: if isAdmin();
+    }
+  }
+}
