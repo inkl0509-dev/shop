@@ -126,11 +126,22 @@ button{cursor:pointer}
 .prod .bd{padding:12px 14px 14px;display:flex;flex-direction:column;gap:4px;flex:1}
 .prod h3{font-size:17px;font-weight:600}
 .prod p{margin:0;color:var(--mute);font-size:14px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-.prod .row{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:auto;padding-top:8px}
+.prod .row{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px;margin-top:auto;padding-top:8px}
 .price{font-weight:700;font-size:18px}
 .qty{display:inline-grid;grid-template-columns:36px minmax(28px,auto) 36px;align-items:center;border:1.5px solid var(--brand);border-radius:10px;overflow:hidden}
 .qty button{height:36px;border:0;background:color-mix(in srgb,var(--brand) 10%,var(--card));font-size:18px;font-weight:700;color:var(--brandInk)}
 .qty span{text-align:center;font-weight:700}
+.opts{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.opts button{display:grid;text-align:left;line-height:1.15;min-height:44px;padding:5px 10px;border-radius:10px;border:1.5px solid var(--line);background:var(--card);font-size:13px;font-weight:600}
+.opts button small{font-weight:500;color:var(--mute);font-size:12px;white-space:nowrap}
+.opts button[aria-pressed=true]{border-color:var(--brand);background:color-mix(in srgb,var(--brand) 10%,var(--card));color:var(--brandInk)}
+.opts button[aria-pressed=true] small{color:var(--brandInk)}
+.price small{font-size:13px;font-weight:600;color:var(--mute)}
+.qty{grid-template-columns:36px minmax(44px,auto) 36px}
+.carticon{display:inline-flex}
+.cartfab{display:none}
+.optrow{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr) minmax(0,.9fr) minmax(0,.7fr) 44px;gap:8px;align-items:end}
+.optrow .fld{font-size:13px}
 .soldout{font-size:13px;font-weight:600;color:var(--bad)}
 .empty{padding:40px 20px;text-align:center;color:var(--mute)}
 footer.foot{border-top:1px solid var(--line);background:var(--card);margin-top:20px}
@@ -151,7 +162,7 @@ dialog::backdrop{background:#0009}
 .tot{display:grid;gap:6px}
 .tot div{display:flex;justify-content:space-between;gap:10px}
 .tot .grand{font-size:20px;font-weight:800;border-top:1px solid var(--line);padding-top:8px}
-.modal{width:min(560px,calc(100% - 24px));border-radius:18px;max-height:calc(100% - 24px)}
+.modal{width:min(660px,calc(100% - 24px));border-radius:18px;max-height:calc(100% - 24px)}
 .modal form,.modal .mb{padding:22px;display:grid;gap:14px}
 .modal h2{font-size:22px}
 .mact{display:flex;justify-content:flex-end;gap:8px;flex-wrap:wrap}
@@ -205,6 +216,9 @@ table.ot{width:100%;border-collapse:collapse;background:var(--card);border:1px s
 .ot th{font-size:13px;color:var(--mute);background:var(--soft)}
 .ot tr.go{cursor:pointer}.ot tr.go:hover td{background:var(--soft)}
 .ot .r{text-align:right}
+.mira td{padding:8px 6px}.mira .bx{width:38px;font-weight:800;color:var(--brandInk)}.mira tr.sumtot td{background:color-mix(in srgb,var(--accent) 14%,var(--card));font-size:17px}
+.items tr.sumtot td{border-top:2px solid var(--ink)}
+.scroll{overflow-x:auto}
 .kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:18px}
 .kpi{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px}
 .kpi span{font-size:13px;color:var(--mute);font-weight:600}.kpi b{display:block;font-size:28px;font-weight:800}
@@ -247,6 +261,11 @@ table.ot{width:100%;border-collapse:collapse;background:var(--card);border:1px s
  .orow{grid-template-columns:minmax(0,1fr) auto}.orow .num{grid-column:2}.orow .pill{grid-column:1/-1;justify-self:start}
  .prow{grid-template-columns:56px minmax(0,1fr);}.prow .acts{grid-column:1/-1}
  .ad{aspect-ratio:4/3;min-height:0}.adbtn{display:none}.adrow{grid-template-columns:96px minmax(0,1fr)}.adrow .th{width:96px}.adrow .acts,.adrow .switch{grid-column:1/-1}
+ .optrow{grid-template-columns:minmax(0,1fr) minmax(0,1fr);border-bottom:1px dashed var(--line);padding-bottom:10px}.optrow .fld:first-child{grid-column:1/-1}
+ .cartbtn .ctx{display:none}
+ .cartfab{display:flex;position:fixed;left:12px;right:12px;bottom:12px;z-index:30;justify-content:space-between;align-items:center;min-height:52px;padding:0 18px;border-radius:14px;border:0;background:var(--brand);color:var(--onbrand);font-weight:700;font-size:16px;box-shadow:0 8px 24px #0004}
+ body.has-demo .cartfab{bottom:72px}
+ body.has-fab{padding-bottom:80px}body.has-fab.has-demo{padding-bottom:140px}
  .bankrow{grid-template-columns:minmax(0,1fr) 44px}.bankrow .fld:nth-child(2),.bankrow .fld:nth-child(3){grid-column:1/2}
  .demo{left:8px;right:8px;bottom:8px;justify-content:center}
 }
@@ -255,7 +274,7 @@ table.ot{width:100%;border-collapse:collapse;background:var(--card);border:1px s
 </head>
 <body>
 <div id="app"></div>
-<dialog id="cartDlg" class="drawer" aria-label="Your bag"></dialog>
+<dialog id="cartDlg" class="drawer" aria-label="Your cart"></dialog>
 <dialog id="modal" class="modal"></dialog>
 <div id="toast" role="status"></div>
 <script src="firebase-config.js"></script>
@@ -301,11 +320,35 @@ const saveCart=()=>{try{localStorage.setItem('shop-cart',JSON.stringify(CART))}c
 let demoView='customer';
 const isAdmin=()=>API&&(API.demo?demoView==='admin':ME&&ME.role==='admin');
 
+/* ================= selling options (piece / loose by weight or volume / packs) ================= */
+const UNITS={pc:{n:'Piece / pack',step:1,sfx:'',per:'each'},kg:{n:'Kg (loose)',step:.5,sfx:'kg',per:'per kg'},L:{n:'Litre (loose)',step:.5,sfx:'L',per:'per litre'}};
+function optsOf(p){const raw=Array.isArray(p.options)&&p.options.length?p.options:[{id:'o1',label:'',unit:'pc',price:p.price,step:1}];
+ return raw.map((x,i)=>{const u=UNITS[x.unit]?x.unit:'pc';const st=+x.step>0?+x.step:UNITS[u].step;return{id:String(x.id||('o'+(i+1))),label:String(x.label||''),unit:u,price:x.price,step:u==='pc'?Math.max(1,Math.round(st)):st}})}
+const optLabel=o=>o.label||(o.unit==='pc'?'Each':UNITS[o.unit].per[0].toUpperCase()+UNITS[o.unit].per.slice(1));
+const optName=(p,o)=>optsOf(p).length>1||o.label?p.name+' — '+optLabel(o):p.name;
+const perUnit=o=>o.unit==='pc'?'':' / '+UNITS[o.unit].sfx;
+const qtyTxt=(q,u)=>(u&&u!=='pc')?(+q).toLocaleString('en-US',{maximumFractionDigits:3})+' '+UNITS[u].sfx:String(+q);
+const minPrice=p=>Math.min(...optsOf(p).map(o=>L(o.price)));
+const lineAmt=i=>Math.round(L(i.price)*(+i.qty));
+const firstQty=o=>o.unit==='pc'?o.step:Math.max(o.step,1);
+const SEL={}; // chosen option per product on the shelf
+const CART_SVG='<svg class="carticon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="20" r="1.6"/><circle cx="18" cy="20" r="1.6"/><path d="M2 3h3l2.6 12.2a1.6 1.6 0 0 0 1.6 1.3h8.7a1.6 1.6 0 0 0 1.6-1.2L22 7H6.2"/></svg>';
+
 /* ================= money ================= */
 function priceOf(id){const p=PRODUCTS.find(x=>x.id===id);return p?L(p.price):0}
-function calc(items){const sub=items.reduce((s,i)=>s+L(i.price)*i.qty,0);const del=items.length?L(SET.deliveryFee):0;
- const rate=parseFloat(SET.gstRate)||0;const tax=Math.round((sub+del)*rate/100);return{sub,del,tax,rate,total:sub+del+tax}}
-const cartItems=()=>CART.map(c=>{const p=PRODUCTS.find(x=>x.id===c.id);return p&&p.active!==false?{id:p.id,name:p.name,price:p.price,qty:c.qty,img:p.image}:null}).filter(Boolean);
+/* ===== Maldives GST (general sector): S = standard rate, Z = zero-rated (0%), E = exempt ===== */
+const GSTT={S:'Standard',Z:'Zero-rated (0%)',E:'Exempt'};
+const gstOn=()=>SET.gstRegistered===true||(SET.gstRegistered===undefined&&parseFloat(SET.gstRate)>0);
+const gstRate=()=>gstOn()?(parseFloat(SET.gstRate)>=0?parseFloat(SET.gstRate):8):0;
+const gstOf=p=>['S','Z','E'].includes(p&&p.gst)?p.gst:'S';
+function calc(items){const sub=items.reduce((s,i)=>s+lineAmt(i),0);const del=items.length?L(SET.deliveryFee):0;const rate=gstRate();
+ let std=0,zero=0,exempt=0;items.forEach(i=>{const a=lineAmt(i),g=gstOn()?(i.gst||'S'):'S';if(g==='Z')zero+=a;else if(g==='E')exempt+=a;else std+=a});
+ std+=del; // delivery is charged at the standard rate
+ const tax=Math.round(std*rate/100);return{sub,del,tax,rate,total:sub+del+tax,std,zero,exempt}}
+/* values of one paid order for the GST return (older orders without a split are treated as standard-rated) */
+function gstSplit(o){if(o.gstStd!=null)return{std:o.gstStd,zero:o.gstZero||0,exempt:o.gstExempt||0,tax:o.tax||0};return{std:(o.subtotal||0)+(o.delivery||0),zero:0,exempt:0,tax:o.tax||0}}
+const cartItems=()=>CART.map(c=>{const p=PRODUCTS.find(x=>x.id===c.id);if(!p||p.active===false)return null;const os=optsOf(p),o=os.find(x=>x.id===c.opt)||os[0];
+ return{key:p.id+'~'+o.id,id:p.id,opt:o.id,name:optName(p,o),price:o.price,unit:o.unit,step:o.step,qty:c.qty,img:p.image,gst:gstOf(p)}}).filter(Boolean);
 
 /* demo artwork: simple packshots and banners drawn on a canvas (real shops upload photos) */
 function rr(x,a,b,w,h,r){x.beginPath();x.roundRect?x.roundRect(a,b,w,h,r):x.rect(a,b,w,h)}
@@ -320,6 +363,9 @@ function drawPack(kind,col,label){const c=document.createElement('canvas');c.wid
  else if(kind==='tin'){rr(x,270,200,260,285,16);x.fill();x.fillStyle='#d9dde0';rr(x,262,182,276,34,10);x.fill();band=[270,290,260,120]}
  else if(kind==='bottle'){rr(x,368,110,64,70,8);x.fill();x.beginPath();x.moveTo(368,175);x.quadraticCurveTo(300,215,300,280);x.lineTo(300,470);x.quadraticCurveTo(400,495,500,470);x.lineTo(500,280);x.quadraticCurveTo(500,215,432,175);x.closePath();x.fill();
   x.fillStyle='#333';rr(x,362,96,76,30,6);x.fill();band=[300,300,200,110]}
+ else if(kind==='eggs'){x.fillStyle='#cdb38a';rr(x,215,330,370,150,18);x.fill();x.fillStyle='#bfa37a';for(let i=0;i<3;i++)for(let j=0;j<2;j++){x.beginPath();x.ellipse(275+i*125,375+j*60,48,20,0,0,7);x.fill()}
+  x.fillStyle=col;for(let i=0;i<3;i++)for(let j=0;j<2;j++){x.beginPath();x.ellipse(275+i*125,345+j*60,40,52,0,0,7);x.fill()}x.fillStyle='rgba(255,255,255,.35)';for(let i=0;i<3;i++)for(let j=0;j<2;j++){x.beginPath();x.ellipse(262+i*125,330+j*60,10,16,-.4,0,7);x.fill()}
+  x.setTransform(1,0,0,1,0,0);return c.toDataURL('image/jpeg',.8)}
  else{rr(x,290,170,210,315,26);x.fill();x.lineWidth=26;x.strokeStyle=col;x.beginPath();x.arc(505,300,62,-1.3,1.3);x.stroke();x.fillStyle='#fff';rr(x,362,138,66,40,8);x.fill();band=[290,280,210,110]}
  x.fillStyle='#fffdf8';rr(x,band[0]+14,band[1],band[2]-28,band[3],10);x.fill();x.fillStyle=col;x.textAlign='center';x.textBaseline='middle';
  const words=label.split(' ');let lines=[],ln='';x.font='700 30px Outfit, system-ui, sans-serif';
@@ -352,6 +398,16 @@ function demoAPI(){
   if(!get('ads',[]).length)put('ads',[{id:'A1',title:'Order online, pay by bank transfer',text:'Fill your bag, transfer, upload the receipt — we deliver to your door.',cat:'',image:drawAd('#0a6c74','#16a3a0'),active:true,order:1,sample:true},
    {id:'A2',title:'Tea & coffee shelf restocked',text:'Fresh stock of black tea and more this week.',cat:'Tea & coffee',image:drawAd('#9b3b2a','#e07a3f'),active:true,order:2,sample:true}]);
   put('seed2',true)}
+ if(!get('seed3',false)){const ps=get('products',[]);const smp=p=>/^Sample item/.test(p.desc||'');
+  const fix=ps.map(p=>p.id==='P2'&&smp(p)&&!p.options?{...p,name:'Basmati rice',desc:'Sample item — buy loose by the kg or as a 5 kg bag.',price:'26.00',options:[{id:'loose',label:'Loose',unit:'kg',price:'26.00',step:.5},{id:'bag5',label:'5 kg bag',unit:'pc',price:'120.00',step:1}]}:p);
+  const add=[{id:'P7',name:'Fresh eggs',category:'Dairy',desc:'Sample item — buy single eggs or a full tray.',price:'3.50',options:[{id:'one',label:'Single egg',unit:'pc',price:'3.50',step:1},{id:'tray',label:'Tray of 30',unit:'pc',price:'95.00',step:1}],image:drawPack('eggs','#e9c98f','Fresh eggs'),active:true,createdAt:Date.now()},
+   {id:'P8',name:'Drinking water, 1.5 L',category:'Drinks',desc:'Sample item — by the bottle or a case of 12.',price:'6.00',options:[{id:'btl',label:'Bottle',unit:'pc',price:'6.00',step:1},{id:'case',label:'Case of 12',unit:'pc',price:'65.00',step:1}],image:drawPack('bottle','#3b8ed0','Water 1.5 L'),active:true,createdAt:Date.now()},
+   {id:'P9',name:'Red onions',category:'Vegetables',desc:'Sample item — loose, sold by weight.',price:'18.00',options:[{id:'kg',label:'',unit:'kg',price:'18.00',step:.5}],image:drawPack('sack','#a8324a','Red onions'),active:true,createdAt:Date.now()}]
+   .filter(n=>!fix.some(p=>p.id===n.id));
+  if(fix.some(smp))put('products',[...fix,...add]);put('seed3',true)}
+ if(!get('seed4',false)){const zr={P2:'Z',P5:'Z',P7:'Z',P9:'Z'}; // sample: rice, cooking oil, eggs, onions are zero-rated essentials
+  put('products',get('products',[]).map(p=>/^Sample item/.test(p.desc||'')&&!p.gst?{...p,gst:zr[p.id]||'S'}:p));
+  const st=get('settings',{});if(st.sample&&st.gstRegistered===undefined)put('settings',{...st,gstRegistered:true,gstRate:'8',gstPeriod:'Q'});put('seed4',true)}
  const users=()=>get('users',[]);
  const me=()=>{const u=users().find(x=>x.uid===get('me',null));return u?{uid:u.uid,phone:u.phone,name:u.name,address:u.address,role:'customer'}:null};
  return{demo:true,
@@ -368,6 +424,7 @@ function demoAPI(){
   watchAds(cb){cb(get('ads',[]));on('ads',()=>cb(get('ads',[])))},
   async saveAd(a){put('ads',[...get('ads',[]).filter(x=>x.id!==a.id),a])},
   async deleteAd(id){put('ads',get('ads',[]).filter(x=>x.id!==id))},
+  async getGstPeriod(id){return get('gstp-'+id,{})},async saveGstPeriod(id,v){put('gstp-'+id,v)},
   watchOrders(cb){const f=()=>{const a=get('orders',[]);cb(isAdmin()?a:a.filter(o=>ME&&o.uid===ME.uid))};f();on('orders',f);on('me',f);on('view',f)},
   async placeOrder(o){put('orders',[o,...get('orders',[])])},
   async updateOrder(id,patch){put('orders',get('orders',[]).map(o=>o.id===id?{...o,...patch}:o))},
@@ -402,6 +459,7 @@ async function firebaseAPI(cfg){
   watchAds(cb){F.onSnapshot(F.collection(db,'ads'),s=>cb(s.docs.map(x=>x.data())),()=>cb([]))},
   async saveAd(a){await F.setDoc(d('ads',a.id),a)},
   async deleteAd(id){await F.deleteDoc(d('ads',id))},
+  async getGstPeriod(id){const x=await F.getDoc(d('gstPeriods',id));return x.exists()?x.data():{}},async saveGstPeriod(id,v){await F.setDoc(d('gstPeriods',id),v)},
   watchOrders(cb){orderCb=cb;sub()},
   async placeOrder(o){await F.setDoc(d('orders',o.id),o)},
   async updateOrder(id,patch){await F.updateDoc(d('orders',id),patch)},
@@ -448,29 +506,30 @@ async function invoicePdf(o){const img=await logoJpeg(),brand=rgb(SET.color),pag
  newPage(true);
  let lx=X0;if(img){const h=56,w=Math.min(140,img.w*h/img.h);ops.push(`q ${w.toFixed(2)} 0 0 ${h} ${X0} ${(842-y-h).toFixed(2)} cm /Im1 Do Q`);lx=X0+w+14}
  T(lx,y+16,fit(SET.name||'Shop',300-(lx-X0),18,true),{sz:18,b:true});
- const info=[SET.address,[SET.phone&&'Tel '+SET.phone,SET.email].filter(Boolean).join('  |  '),[SET.reg&&'Reg. '+SET.reg,SET.tin&&'TIN '+SET.tin].filter(Boolean).join('  |  ')].filter(Boolean);
+ const info=[SET.address,[SET.phone&&'Tel '+SET.phone,SET.email].filter(Boolean).join('  |  '),[SET.reg&&'Reg. '+SET.reg,SET.tin&&'GST TIN '+SET.tin].filter(Boolean).join('  |  ')].filter(Boolean);
  info.forEach((s,i)=>T(lx,y+32+i*12,fit(s,320-(lx-X0),9),{sz:9,c:grey}));
- T(X1,y+18,'INVOICE',{sz:24,b:true,c:brand,al:'r'});
+ const taxInv=o.gstRegistered!==false&&(o.taxRate>0||o.gstRegistered);T(X1,y+18,taxInv?'TAX INVOICE':'INVOICE',{sz:taxInv?22:24,b:true,c:brand,al:'r'});
  [['Invoice no.',o.invoiceNo||('INV-'+o.id)],['Invoice date',dshort(o.paidAt||o.createdAt)],['Order no.',o.id],['Order date',dshort(o.createdAt)]]
   .forEach(([k,v],i)=>{T(X1-110,y+38+i*13,k,{sz:9,c:grey,al:'r'});T(X1,y+38+i*13,v,{sz:9,b:true,al:'r'})});
  y+=Math.max(img?56:30,32+info.length*12,38+4*13)+22;
  RECT(X0,y,240,16,'0.95 0.97 0.97');T(X0+8,y+11,'BILL TO',{sz:8,b:true,c:grey});
  RECT(X1-200,y,200,16,'0.95 0.97 0.97');T(X1-192,y+11,'PAYMENT',{sz:8,b:true,c:grey});
- const c=o.customer||{};let by=y+30;[c.name,prettyPhone(c.phone),...String(c.address||'').split(/\n/)].filter(Boolean).slice(0,5).forEach((s,i)=>T(X0+8,by+i*13,fit(s,228,10,i===0),{sz:10,b:i===0}));
+ const c=o.customer||{};let by=y+30;[c.business||c.name,c.business&&c.name?'Attn: '+c.name:'',c.btin?'GST TIN '+c.btin:'',prettyPhone(c.phone),...String(c.address||'').split(/\n/)].filter(Boolean).slice(0,6).forEach((s,i)=>T(X0+8,by+i*13,fit(s,228,10,i===0),{sz:10,b:i===0}));
  const paid=PAID.includes(o.status);
  T(X1-192,by,'Bank transfer',{sz:10,b:true});T(X1-192,by+13,paid?'PAID':'NOT YET PAID',{sz:10,b:true,c:paid?'0.07 0.48 0.31':'0.76 0.21 0.11'});
  if(o.paidAt)T(X1-192,by+26,'Received '+dshort(o.paidAt),{sz:9,c:grey});
- y=by+5*13+10;
- const head=()=>{RECT(X0,y,X1-X0,22,brand);[['#',X0+8,'l'],['Item',X0+30,'l'],['Qty',X0+310,'r'],['Unit price',X0+400,'r'],['Amount (MVR)',X1-8,'r']]
+ y=by+6*13+6;const gs=o.gstRegistered||o.taxRate>0;
+ const head=()=>{RECT(X0,y,X1-X0,22,brand);[['#',X0+8,'l'],['Item',X0+30,'l'],['Qty',X0+262,'r'],['Unit price',X0+340,'r'],[gs?'GST':'',X0+358,'l'],[gs?'Amount excl. GST':'Amount (MVR)',X1-8,'r']]
   .forEach(([s,x,al])=>T(x,y+15,s,{sz:9,b:true,c:'1 1 1',al}));y+=22};
  head();
  (o.items||[]).forEach((it,i)=>{if(y>740){newPage(false);head()}
   if(i%2)RECT(X0,y,X1-X0,20,'0.975 0.982 0.982');
-  T(X0+8,y+14,String(i+1),{sz:9,c:grey});T(X0+30,y+14,fit(it.name,250,10),{sz:10});T(X0+310,y+14,String(it.qty),{sz:10,al:'r'});
-  T(X0+400,y+14,fmt(L(it.price)),{sz:10,al:'r'});T(X1-8,y+14,fmt(L(it.price)*it.qty),{sz:10,al:'r'});y+=20});
+  T(X0+8,y+14,String(i+1),{sz:9,c:grey});T(X0+30,y+14,fit(it.name,190,10),{sz:10});T(X0+262,y+14,qtyTxt(it.qty,it.unit),{sz:10,al:'r'});
+  T(X0+340,y+14,fmt(L(it.price))+(it.unit&&it.unit!=='pc'?'/'+UNITS[it.unit].sfx:''),{sz:10,al:'r'});if(gs)T(X0+358,y+14,it.gst==='Z'?'0%':it.gst==='E'?'Exempt':(o.taxRate||0)+'%',{sz:9,c:grey});T(X1-8,y+14,fmt(lineAmt(it)),{sz:10,al:'r'});y+=20});
  LINE(X0,y,X1);y+=8;if(y>700){newPage(false)}
- const tl=[['Subtotal',o.subtotal],['Delivery',o.delivery]];if(o.taxRate)tl.push([`GST ${o.taxRate}%`,o.tax]);
- tl.forEach(([k,v])=>{T(X1-130,y+13,k,{sz:10,c:grey,al:'r'});T(X1-8,y+13,fmt(v||0),{sz:10,al:'r'});y+=17});
+ const sp=gstSplit(o);const tl=[['Subtotal',o.subtotal],['Delivery',o.delivery]];
+ if(gs){tl.push([`Value at ${o.taxRate||0}% (excl. GST)`,sp.std]);if(sp.zero)tl.push(['Zero-rated value',sp.zero]);if(sp.exempt)tl.push(['Exempt value',sp.exempt]);tl.push([`GST ${o.taxRate||0}%`,o.tax])}
+ tl.forEach(([k,v])=>{T(X1-110,y+13,k,{sz:10,c:grey,al:'r'});T(X1-8,y+13,fmt(v||0),{sz:10,al:'r'});y+=17});
  RECT(X1-230,y+4,230,26,brand);T(X1-130,y+21,'TOTAL (MVR)',{sz:11,b:true,c:'1 1 1',al:'r'});T(X1-8,y+21,fmt(o.total||0),{sz:12,b:true,c:'1 1 1',al:'r'});y+=40;
  if(paid){T(X1-130,y+6,'Paid',{sz:10,c:grey,al:'r'});T(X1-8,y+6,fmt(o.total||0),{sz:10,al:'r'});T(X1-130,y+20,'Balance due',{sz:10,b:true,al:'r'});T(X1-8,y+20,'0.00',{sz:10,b:true,al:'r'});y+=30}
  const fy=790;LINE(X0,fy-14,X1);
@@ -511,19 +570,19 @@ async function logoColour(u){const im=await loadImg(u);const c=document.createEl
  while(lum('#'+rgb.map(v=>Math.round(v).toString(16).padStart(2,'0')).join(''))>.2)rgb=rgb.map(v=>v*.9);
  return '#'+rgb.map(v=>Math.round(v).toString(16).padStart(2,'0')).join('')}
 function logo(sz=''){const u=okImg(SET.logo);return u?`<img src="${u}" alt="">`:`<span class="mono">${esc((SET.name||'S').trim()[0]||'S')}</span>`}
-function topbar(){const n=CART.reduce((s,c)=>s+c.qty,0),adm=isAdmin()&&!API.demo;
+function topbar(){const n=CART.length,adm=isAdmin()&&!API.demo;
  return `<header class="top"><div class="wrap">
  <a class="brand" href="#shop">${logo()}<span><b>${esc(SET.name||'Our shop')}</b><small>${esc(SET.tagline||'')}</small></span></a>
  <nav class="topnav">${adm?'<a href="#admin">Admin</a>':''}<a href="#orders">Orders</a>
  <a href="#account">${ME?esc(ME.name?ME.name.split(' ')[0]:'Account'):'Sign in'}</a>
- <button class="btn sm pri cartbtn" data-act="cart" aria-label="Open bag">Bag <span class="badge">${n}</span></button></nav></div></header>`}
+ <button class="btn sm pri cartbtn" data-act="cart" aria-label="Open cart, ${n} item${n===1?'':'s'}">${CART_SVG}<span class="ctx">Cart</span> <span class="badge">${n}</span></button></nav></div></header>`}
 function footer(){const c=[SET.phone&&`Phone ${esc(SET.phone)}`,SET.viber&&`Viber / WhatsApp ${esc(SET.viber)}`,SET.email&&esc(SET.email),SET.address&&esc(SET.address),SET.hours&&esc(SET.hours)].filter(Boolean);
  return `<footer class="foot"><div class="wrap"><b style="color:var(--ink)">${esc(SET.name||'')}</b>${c.map(x=>`<span>${x}</span>`).join('')}<a href="#orders">My orders</a><a href="#account">Account</a></div></footer>`}
 function demoBar(){if(!API||!API.demo)return'';return `<div class="demo"><span>Demo</span><a href="#shop" aria-current="${demoView==='customer'}" data-act="view-c">Customer</a><a href="#admin" aria-current="${demoView==='admin'}" data-act="view-a">Admin</a></div>`}
 
 let cat='All',q='',sortBy='name',adIdx=0,adPause=false;
 const CATNONE='Other items';
-const SORTS={name:[(a,b)=>a.name.localeCompare(b.name),'Name A–Z'],low:[(a,b)=>L(a.price)-L(b.price)||a.name.localeCompare(b.name),'Price: low to high'],high:[(a,b)=>L(b.price)-L(a.price)||a.name.localeCompare(b.name),'Price: high to low']};
+const SORTS={name:[(a,b)=>a.name.localeCompare(b.name),'Name A–Z'],low:[(a,b)=>minPrice(a)-minPrice(b)||a.name.localeCompare(b.name),'Price: low to high'],high:[(a,b)=>minPrice(b)-minPrice(a)||a.name.localeCompare(b.name),'Price: high to low']};
 const sortItems=a=>[...a].sort((x,y)=>((x.active===false)-(y.active===false))||SORTS[sortBy][0](x,y));
 const catsOf=()=>[...new Set(PRODUCTS.map(p=>p.category||CATNONE))].sort((a,b)=>a===CATNONE?1:b===CATNONE?-1:a.localeCompare(b));
 const liveAds=()=>ADS.filter(a=>a.active!==false&&okImg(a.image)).sort((a,b)=>(a.order||0)-(b.order||0));
@@ -546,18 +605,21 @@ function vShop(){const cats=['All',...catsOf()];if(!cats.includes(cat))cat='All'
  <select class="sortsel" id="sortSel" aria-label="Sort items">${Object.entries(SORTS).map(([k,[,n]])=>`<option value="${k}" ${k===sortBy?'selected':''}>${n}</option>`).join('')}</select>
  <div class="cats" style="flex-basis:100%">${cats.map(c=>`<button data-act="cat" data-v="${esc(c)}" aria-pressed="${c===cat}">${esc(c)}</button>`).join('')}</div></div>
  ${SET.sample&&API.demo?'<p class="muted" style="margin:-6px 0 14px;font-size:14px">Sample shop, ads and items — change them in the admin portal.</p>':''}${body}</main>`+footer()}
-function card(p){const inCart=CART.find(c=>c.id===p.id),img=okImg(p.image),off=p.active===false;
- return `<article class="prod"><div class="ph">${img?`<img src="${img}" alt="${esc(p.name)}" loading="lazy">`:ini(p.name)}${q||cat==='All'&&false?`<span class="tag">${esc(p.category||CATNONE)}</span>`:''}</div><div class="bd">
- <h3>${esc(p.name)}</h3>${p.desc?`<p>${esc(p.desc)}</p>`:''}<div class="row"><span class="price num">${M(L(p.price))}</span>
- ${off?'<span class="soldout">Sold out</span>':inCart?qtyCtl(p.id,inCart.qty):`<button class="btn sm pri" data-act="add" data-id="${esc(p.id)}">Add</button>`}</div></div></article>`}
-const qtyCtl=(id,n)=>`<span class="qty"><button data-act="dec" data-id="${esc(id)}" aria-label="One less">−</button><span class="num">${n}</span><button data-act="inc" data-id="${esc(id)}" aria-label="One more">+</button></span>`;
+function card(p){const os=optsOf(p),img=okImg(p.image),off=p.active===false;const o=os.find(x=>x.id===SEL[p.id])||os[0];
+ const inCart=CART.find(c=>c.id===p.id&&(c.opt||os[0].id)===o.id);
+ return `<article class="prod"><div class="ph">${img?`<img src="${img}" alt="${esc(p.name)}" loading="lazy">`:ini(p.name)}</div><div class="bd">
+ <h3>${esc(p.name)}</h3>${p.desc?`<p>${esc(p.desc)}</p>`:''}
+ ${os.length>1?`<div class="opts" role="group" aria-label="Choose how to buy">${os.map(x=>`<button data-act="opt" data-id="${esc(p.id)}" data-v="${esc(x.id)}" aria-pressed="${x.id===o.id}">${esc(optLabel(x))}<small class="num">${fmt(L(x.price))}${perUnit(x)}</small></button>`).join('')}</div>`:''}
+ <div class="row"><span class="price num">${M(L(o.price))}<small>${perUnit(o)||(os.length===1&&o.label?' · '+esc(o.label):'')}</small></span>
+ ${off?'<span class="soldout">Sold out</span>':inCart?qtyCtl(p.id+'~'+o.id,inCart.qty,o.unit):`<button class="btn sm pri" data-act="add" data-id="${esc(p.id+'~'+o.id)}">Add</button>`}</div></div></article>`}
+const qtyCtl=(key,n,u)=>`<span class="qty"><button data-act="dec" data-id="${esc(key)}" aria-label="Less">−</button><span class="num">${esc(qtyTxt(n,u))}</span><button data-act="inc" data-id="${esc(key)}" aria-label="More">+</button></span>`;
 
 function drawCart(){const it=cartItems(),t=calc(it);
- $('cartDlg').innerHTML=`<header><h2 style="font-size:22px">Your bag</h2><button class="btn sm ghost" data-act="close-cart" aria-label="Close">✕</button></header>
+ $('cartDlg').innerHTML=`<header><h2 style="font-size:22px">Your cart</h2><button class="btn sm ghost" data-act="close-cart" aria-label="Close">✕</button></header>
  <div class="list">${it.length?it.map(i=>`<div class="citem"><div class="th">${okImg(i.img)?`<img src="${okImg(i.img)}" alt="">`:ini(i.name)}</div>
- <div><b>${esc(i.name)}</b><span class="muted num">${M(L(i.price))}</span></div>${qtyCtl(i.id,i.qty)}</div>`).join(''):'<div class="empty">Your bag is empty.</div>'}</div>
+ <div><b>${esc(i.name)}</b><span class="muted" style="display:block;font-size:14px">${M(L(i.price))}${i.unit!=='pc'?' / '+UNITS[i.unit].sfx:' each'}${gstOn()&&i.gst!=='S'?' · GST-free':''}</span><b class="num" style="font-size:15px">${M(lineAmt(i))}</b></div>${qtyCtl(i.key,i.qty,i.unit)}</div>`).join(''):'<div class="empty">Your cart is empty.</div>'}</div>
  ${it.length?`<footer><div class="tot"><div><span>Subtotal</span><span class="num">${M(t.sub)}</span></div><div><span>Delivery</span><span class="num">${M(t.del)}</span></div>
- ${t.rate?`<div><span>GST ${t.rate}%</span><span class="num">${M(t.tax)}</span></div>`:''}<div class="grand"><span>Total</span><span class="num">${M(t.total)}</span></div></div>
+ ${t.rate?`<div><span>GST ${t.rate}%${t.zero+t.exempt?' <small class="muted">(not on GST-free items)</small>':''}</span><span class="num">${M(t.tax)}</span></div>`:''}<div class="grand"><span>Total</span><span class="num">${M(t.total)}</span></div></div>
  <button class="btn acc" data-act="checkout">Checkout</button></footer>`:''}`}
 
 function authForm(next){return `<div class="card stack" style="max-width:460px"><div class="tabs2"><button data-act="atab" data-v="in" aria-pressed="${authTab==='in'}">Sign in</button><button data-act="atab" data-v="up" aria-pressed="${authTab==='up'}">Create account</button></div>
@@ -571,22 +633,23 @@ function authForm(next){return `<div class="card stack" style="max-width:460px">
 let authTab='in';
 
 function vCheckout(){const it=cartItems(),t=calc(it);FORMVIEW=!!ME;
- if(!it.length)return topbar()+`<main class="wrap page center"><div><h1>Your bag is empty</h1><p class="muted">Add some items first.</p><a class="btn pri" href="#shop">Go shopping</a></div></main>`;
- const summary=`<aside class="card stack"><h2 style="font-size:20px">Order summary</h2><div>${it.map(i=>`<div class="sumrow"><span>${esc(i.name)} <span class="muted">× ${i.qty}</span></span><span class="num">${M(L(i.price)*i.qty)}</span></div>`).join('')}</div>
- <div class="tot"><div><span>Subtotal</span><span class="num">${M(t.sub)}</span></div><div><span>Delivery</span><span class="num">${M(t.del)}</span></div>${t.rate?`<div><span>GST ${t.rate}%</span><span class="num">${M(t.tax)}</span></div>`:''}<div class="grand"><span>Total</span><span class="num">${M(t.total)}</span></div></div>
+ if(!it.length)return topbar()+`<main class="wrap page center"><div><h1>Your cart is empty</h1><p class="muted">Add some items first.</p><a class="btn pri" href="#shop">Go shopping</a></div></main>`;
+ const summary=`<aside class="card stack"><h2 style="font-size:20px">Order summary</h2><div>${it.map(i=>`<div class="sumrow"><span>${esc(i.name)} <span class="muted">× ${esc(qtyTxt(i.qty,i.unit))}</span></span><span class="num">${M(lineAmt(i))}</span></div>`).join('')}</div>
+ <div class="tot"><div><span>Subtotal</span><span class="num">${M(t.sub)}</span></div><div><span>Delivery</span><span class="num">${M(t.del)}</span></div>${t.rate?`<div><span>GST ${t.rate}%${t.zero+t.exempt?' <small class="muted">(not on GST-free items)</small>':''}</span><span class="num">${M(t.tax)}</span></div>`:''}<div class="grand"><span>Total</span><span class="num">${M(t.total)}</span></div></div>
  <p class="muted" style="margin:0;font-size:14px">Payment: bank transfer. You'll see our account number after you place the order.</p></aside>`;
  return topbar()+`<main class="wrap page"><h1>Checkout</h1><p class="muted">Pay by bank transfer, upload your receipt, and we'll start on your order.</p><div class="cols" style="margin-top:18px">
  ${ME?`<form class="card stack" data-form="order"><h2 style="font-size:20px">Delivery details</h2><div class="grid2"><label class="fld">Name<input name="name" value="${esc(ME.name)}" required></label>
  <label class="fld">Mobile<input value="${esc(prettyPhone(ME.phone))}" disabled></label></div>
  <label class="fld">Delivery address<textarea name="address" required>${esc(ME.address)}</textarea></label>
  <label class="fld">Note for the shop <small>(optional)</small><input name="note" placeholder="e.g. call before delivery"></label>
+ ${gstOn()?`<details><summary style="cursor:pointer;font-weight:600">Buying for a GST-registered business?</summary><div class="grid2" style="margin-top:10px"><label class="fld">Business name<input name="business"></label><label class="fld">Business GST TIN<input name="btin" placeholder="e.g. 1000000GST501"></label></div><p class="muted" style="margin:6px 0 0;font-size:14px">These go on your tax invoice.</p></details>`:''}
  <button class="btn acc" id="placeBtn">Place order · <span class="num">${M(t.total)}</span></button></form>`
  :`<div class="stack"><p style="margin:0"><b>Sign in or create an account</b> so you can follow your order.</p>${authForm('checkout')}</div>`}${summary}</div></main>`}
 
 function steps(o){const i=o.status==='payment_rejected'?1:o.status==='cancelled'?-1:FLOW.indexOf(o.status);
  return `<ol class="steps">${STEPN.map((n,k)=>`<li class="${k<i||o.status==='delivered'?'done':k===i?'now':''}">${n}</li>`).join('')}</ol>`}
 function itemsTable(o){return `<table class="items"><thead><tr><th>Item</th><th class="r">Qty</th><th class="r">Price</th><th class="r">Amount</th></tr></thead><tbody>
- ${(o.items||[]).map(i=>`<tr><td>${esc(i.name)}</td><td class="r">${+i.qty}</td><td class="r">${fmt(L(i.price))}</td><td class="r">${fmt(L(i.price)*i.qty)}</td></tr>`).join('')}</tbody></table>
+ ${(o.items||[]).map(i=>`<tr><td>${esc(i.name)}${o.gstRegistered&&i.gst&&i.gst!=='S'?` <span class="muted" style="font-size:12px">(${i.gst==='Z'?'zero-rated':'exempt'})</span>`:''}</td><td class="r">${esc(qtyTxt(i.qty,i.unit))}</td><td class="r">${fmt(L(i.price))}${i.unit&&i.unit!=='pc'?'<span class="muted">/'+UNITS[i.unit].sfx+'</span>':''}</td><td class="r">${fmt(lineAmt(i))}</td></tr>`).join('')}</tbody></table>
  <div class="tot" style="margin-top:10px"><div><span>Subtotal</span><span class="num">${M(o.subtotal||0)}</span></div><div><span>Delivery</span><span class="num">${M(o.delivery||0)}</span></div>
  ${o.taxRate?`<div><span>GST ${+o.taxRate}%</span><span class="num">${M(o.tax||0)}</span></div>`:''}<div class="grand"><span>Total</span><span class="num">${M(o.total||0)}</span></div></div>`}
 
@@ -618,7 +681,7 @@ function vOrder(id){const o=ORDERS.find(x=>x.id===id);
 
 function vOrders(){if(!ME&&!API.demo)return topbar()+`<main class="wrap page"><h1>My orders</h1>${authForm('orders')}</main>`;
  const mine=ORDERS.filter(o=>API.demo?ME&&o.uid===ME.uid:true);
- return topbar()+`<main class="wrap page"><h1>My orders</h1>${!ME?authForm('orders'):mine.length?`<div class="olist" style="margin-top:14px">${mine.map(o=>`<a class="orow" href="#order-${esc(o.id)}"><span><b>${esc(o.id)}</b><span class="muted">${esc(dt(o.createdAt))} · ${(o.items||[]).reduce((s,i)=>s+i.qty,0)} items</span></span><span class="num">${M(o.total)}</span>${pill(o.status)}</a>`).join('')}</div>`
+ return topbar()+`<main class="wrap page"><h1>My orders</h1>${!ME?authForm('orders'):mine.length?`<div class="olist" style="margin-top:14px">${mine.map(o=>`<a class="orow" href="#order-${esc(o.id)}"><span><b>${esc(o.id)}</b><span class="muted">${esc(dt(o.createdAt))} · ${(o.items||[]).length} item${(o.items||[]).length===1?'':'s'}</span></span><span class="num">${M(o.total)}</span>${pill(o.status)}</a>`).join('')}</div>`
   :'<div class="empty">No orders yet. <a href="#shop">Start shopping</a></div>'}</main>`+footer()}
 
 function vAccount(){if(!ME)return topbar()+`<main class="wrap page"><h1>Your account</h1><p class="muted">Sign in with your mobile number and password.</p>${authForm('shop')}</main>`;
@@ -630,7 +693,7 @@ function vAccount(){if(!ME)return topbar()+`<main class="wrap page"><h1>Your acc
 let afilter='action';
 function rail(cur){const n=ORDERS.filter(o=>o.status==='payment_submitted').length;
  return `<nav class="rail"><span class="lbl">Admin portal</span><a href="#admin" ${cur==='o'?'aria-current="page"':''}>Orders ${n?`<span class="badge">${n}</span>`:''}</a>
- <a href="#admin-products" ${cur==='p'?'aria-current="page"':''}>Products</a><a href="#admin-ads" ${cur==='a'?'aria-current="page"':''}>Ads</a><a href="#admin-shop" ${cur==='s'?'aria-current="page"':''}>Shop settings</a><a href="#shop">View shop ↗</a>
+ <a href="#admin-products" ${cur==='p'?'aria-current="page"':''}>Products</a><a href="#admin-ads" ${cur==='a'?'aria-current="page"':''}>Ads</a><a href="#admin-gst" ${cur==='g'?'aria-current="page"':''}>GST report</a><a href="#admin-shop" ${cur==='s'?'aria-current="page"':''}>Shop settings</a><a href="#shop">View shop ↗</a>
  ${!API.demo&&ME?`<span class="lbl" style="margin-top:auto">${esc(prettyPhone(ME.phone))}</span><a href="#account">Sign out</a>`:''}</nav>`}
 const adminWrap=(cur,body)=>topbar()+`<div class="adm">${rail(cur)}<main class="work">${body}</main></div>`;
 function gate(){if(isAdmin())return'';return topbar()+`<main class="wrap page"><h1>Admin portal</h1><p class="muted">Sign in with an admin account.</p>${ME?'<div class="note bad">This account is not an admin. Ask the shop owner to give you admin access.</div>':authForm('admin')}</main>`}
@@ -666,7 +729,7 @@ function vAdminOrder(id){const g=gate();if(g)return g;const o=ORDERS.find(x=>x.i
 function vAdminProducts(){const g=gate();if(g)return g;
  return adminWrap('p',`<div style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center;margin-bottom:16px"><h1 style="margin:0">Products</h1><button class="btn acc" data-act="pedit">+ Add product</button></div>
  ${PRODUCTS.length?`<div class="plist">${PRODUCTS.map(p=>`<div class="prow"><div class="th">${okImg(p.image)?`<img src="${okImg(p.image)}" alt="">`:ini(p.name)}</div>
- <div><b>${esc(p.name)}</b><div class="muted" style="font-size:14px">${esc(p.category||'No category')} · <span class="num">${M(L(p.price))}</span></div></div>
+ <div><b>${esc(p.name)}</b>${gstOn()&&gstOf(p)!=='S'?` <span class="pill" style="font-size:12px">${gstOf(p)==='Z'?'0% GST':'GST exempt'}</span>`:''}<div class="muted" style="font-size:14px">${esc(p.category||'No category')} · ${optsOf(p).map(o=>`${esc(optLabel(o))} <span class="num">${fmt(L(o.price))}${perUnit(o)}</span>`).join(' · ')}</div></div>
  <label class="switch"><input type="checkbox" data-act="ptoggle" data-id="${esc(p.id)}" ${p.active!==false?'checked':''}>${p.active!==false?'In stock':'Sold out'}</label>
  <div class="acts"><button class="btn sm" data-act="pedit" data-id="${esc(p.id)}">Edit</button><button class="btn sm bad" data-act="pdel" data-id="${esc(p.id)}">Delete</button></div></div>`).join('')}</div>`
  :'<div class="empty card">No products yet. Add your first one.</div>'}`)}
@@ -689,6 +752,80 @@ function adModal(a){a=a||{};aImg=okImg(a.image)||'';const cats=[...new Set(PRODU
  <label class="fld">Button links to category <small>(optional)</small><select name="cat"><option value="">No button</option>${cats.map(c=>`<option ${c===a.cat?'selected':''}>${esc(c)}</option>`).join('')}</select></label>
  <label class="switch"><input type="checkbox" name="active" ${a.active!==false?'checked':''}> Show in the shop</label>
  <div class="mact"><button type="button" class="btn" data-act="mclose">Cancel</button><button class="btn pri">Save ad</button></div></form>`;$('modal').showModal()}
+/* ---------- GST report (MIRA 205, general sector) ---------- */
+let gstSel=null,GSTP={};
+const MON=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+function periodsList(){const Q=SET.gstPeriod!=='M',out=[],d=new Date();let y=d.getFullYear(),m=d.getMonth();
+ if(Q){let q=Math.floor(m/3);for(let i=0;i<8;i++){out.push({id:`${y}-Q${q+1}`,from:new Date(y,q*3,1),to:new Date(y,q*3+3,1),label:`Q${q+1} ${y} (${MON[q*3]}–${MON[q*3+2]})`});if(--q<0){q=3;y--}}}
+ else for(let i=0;i<12;i++){out.push({id:`${y}-${String(m+1).padStart(2,'0')}`,from:new Date(y,m,1),to:new Date(y,m+1,1),label:`${MON[m]} ${y}`});if(--m<0){m=11;y--}}
+ return out}
+function dueDate(to){let d=new Date(to.getFullYear(),to.getMonth(),28);while(d.getDay()===5||d.getDay()===6)d.setDate(d.getDate()+1);return d} // Maldives weekend: Fri & Sat
+const whole=l=>Math.round(l/100)*100; // MIRA 205 page 1 is in whole Rufiyaa
+const wfmt=l=>(whole(l)/100).toLocaleString('en-US');
+function gstData(per){const rows=ORDERS.filter(o=>PAID.includes(o.status)&&o.paidAt>=+per.from&&o.paidAt<+per.to).sort((a,b)=>a.paidAt-b.paidAt)
+  .map(o=>{const g=gstSplit(o);return{o,inv:o.invoiceNo||'INV-'+o.id,date:o.paidAt,cust:(o.customer&&(o.customer.business||o.customer.name))||'',btin:o.customer&&o.customer.btin||'',std:g.std,tax:g.tax,incl:g.std+g.tax,zero:g.zero,exempt:g.exempt,total:o.total}});
+ const sum=k=>rows.reduce((s,r)=>s+r[k],0);const rate=gstRate()||8;
+ const inp=GSTP[per.id]||{};
+ const b1=sum('incl'),b2=sum('zero'),b3=sum('exempt'),b4=0,b6=Math.round(b1*rate/(100+rate)),b7=L(inp.input),b8=L(inp.adj),b9=L(inp.excess);
+ return{rows,rate,collected:sum('tax'),b:{1:b1,2:b2,3:b3,4:b4,5:b1+b2+b3+b4,6:b6,7:b7,8:b8,9:b9,10:b6+b9-b7-b8},bag:L(inp.bag)}}
+function vAdminGst(){const g=gate();if(g)return g;const pl=periodsList();if(!gstSel||!pl.some(x=>x.id===gstSel))gstSel=pl[0].id;
+ const per=pl.find(x=>x.id===gstSel),D=gstData(per),B=D.b,inp=GSTP[per.id]||{},due=dueDate(per.to);
+ if(API.getGstPeriod&&!(per.id in GSTP)){GSTP[per.id]={};API.getGstPeriod(per.id).then(v=>{GSTP[per.id]=v||{};if(route()==='admin-gst')render()}).catch(()=>{})}
+ const box=(n,l,v,note='')=>`<tr><td class="bx">${n}</td><td>${l}${note?`<div class="muted" style="font-size:12px">${note}</div>`:''}</td><td class="r num">${wfmt(v)}</td></tr>`;
+ const inField=(k,l,note)=>`<label class="fld">${l}<input data-gstin="${k}" inputmode="decimal" value="${esc(inp[k]||'')}" placeholder="0.00"><small>${note}</small></label>`;
+ FORMVIEW=true;
+ return adminWrap('g',`<div style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:end;margin-bottom:6px"><div><h1 style="margin:0">GST report</h1><p class="muted" style="margin:4px 0 0">For the MIRA 205 return — general goods and services, GST at ${D.rate}%.</p></div>
+ <label class="fld" style="min-width:240px">Taxable period<select id="gstPer">${pl.map(x=>`<option value="${x.id}" ${x.id===gstSel?'selected':''}>${x.label}</option>`).join('')}</select></label></div>
+ ${!gstOn()?'<div class="note bad" style="margin:12px 0">GST registration is off in Shop settings, so no GST is being charged. Turn it on in Shop settings → GST.</div>':''}
+ ${!SET.tin?'<div class="note" style="margin:12px 0">Add your GST TIN in Shop settings → GST so it shows on the report and tax invoices.</div>':''}
+ <div class="kpis" style="margin-top:14px"><div class="kpi"><span>Sales in period</span><b class="num" style="font-size:22px">${M(B[5])}</b></div><div class="kpi"><span>Output tax (Box 6)</span><b class="num" style="font-size:22px">${M(B[6])}</b></div>
+ <div class="kpi hot"><span>GST payable (Box 10)</span><b class="num" style="font-size:22px">${M(B[10])}</b></div><div class="kpi"><span>File & pay by</span><b style="font-size:20px">${due.toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'})}</b></div></div>
+ <div class="cols"><section class="card stack"><h2 style="font-size:19px">MIRA 205 — page 1 (whole Rufiyaa)</h2>
+ <div class="muted" style="font-size:14px">GST TIN <b style="color:var(--ink)">${esc(SET.tin||'—')}</b> · ${esc(SET.name||'')} · Period ${per.from.toLocaleDateString('en-GB')} – ${new Date(+per.to-864e5).toLocaleDateString('en-GB')}</div>
+ <table class="items mira"><tbody>${box(1,`Sales of supplies subject to GST at ${D.rate}% (inclusive of GST)`,B[1])}${box(2,'Sales of zero-rated supplies',B[2])}${box(3,'Sales of exempt supplies',B[3])}${box(4,'Sales of supplies which are out of scope of GST',B[4])}
+ ${box(5,'Total sales (Boxes 1 to 4)',B[5])}${box(6,'Output tax',B[6],`Box 1 × ${D.rate}/${100+D.rate}`)}${box(7,'Input tax',B[7],'From your Statement of Input Tax')}${box(8,'GST deductions (bad debts / rate-change credit notes)',B[8])}${box(9,'GST collected in excess',B[9])}
+ <tr class="sumtot"><td class="bx">10</td><td><b>GST liability for the period</b><div class="muted" style="font-size:12px">Box 6 + Box 9 − Box 7 − Box 8</div></td><td class="r num"><b>${wfmt(B[10])}</b></td></tr>
+ ${box(12,'Plastic bag fee for the period',D.bag)}</tbody></table>
+ <p class="muted" style="font-size:13px;margin:0">Taxable activity ${esc(SET.gstActNo||'—')} ${esc(SET.gstActName||'')}. GST added at checkout this period: ${M(D.collected)}. Box 6 is worked out the MIRA way from Box 1, so it can differ from that by a few laari.</p></section>
+ <aside class="stack"><section class="card stack"><h2 style="font-size:18px">Your figures for this period</h2>
+ ${inField('input','Input tax (Box 7)','GST paid on business purchases with valid tax invoices')}${inField('adj','Deductions (Box 8)','Usually 0')}${inField('excess','GST collected in excess (Box 9)','Usually 0')}${inField('bag','Plastic bag fees collected','0 if none')}
+ <button class="btn pri" data-act="gstsave">Save figures</button></section>
+ <section class="card stack"><h2 style="font-size:18px">Download</h2><button class="btn" data-act="gstpdf">GST report (PDF)</button><button class="btn" data-act="gstcsv">Sales listing (CSV)</button>
+ <p class="muted" style="font-size:13px;margin:0">File on MIRAconnect by the 28th of the month after the period (next working day if it falls on a weekend or holiday).</p></section></aside></div>
+ <section class="card stack" style="margin-top:18px"><h2 style="font-size:19px">Sales in this period <span class="muted" style="font-size:15px;font-weight:500">· ${D.rows.length} tax invoice${D.rows.length===1?'':'s'}, by payment date</span></h2>
+ ${D.rows.length?`<div class="scroll"><table class="items"><thead><tr><th>Invoice</th><th>Date</th><th>Customer</th><th class="r">${D.rate}% value excl.</th><th class="r">GST</th><th class="r">Zero-rated</th><th class="r">Exempt</th><th class="r">Total</th></tr></thead><tbody>
+ ${D.rows.map(r=>`<tr><td><a href="#admin-order-${esc(r.o.id)}">${esc(r.inv)}</a></td><td>${esc(dshort(r.date))}</td><td>${esc(r.cust)}${r.btin?`<div class="muted" style="font-size:12px">TIN ${esc(r.btin)}</div>`:''}</td><td class="r">${fmt(r.std)}</td><td class="r">${fmt(r.tax)}</td><td class="r">${fmt(r.zero)}</td><td class="r">${fmt(r.exempt)}</td><td class="r">${fmt(r.total)}</td></tr>`).join('')}
+ <tr class="sumtot"><td colspan="3"><b>Total</b></td>${['std','tax','zero','exempt','total'].map(k=>`<td class="r"><b>${fmt(D.rows.reduce((s,r)=>s+r[k],0))}</b></td>`).join('')}</tr></tbody></table></div>`
+ :'<div class="empty">No paid orders in this period.</div>'}
+ <p class="muted" style="font-size:13px;margin:0">Orders count in the period when the payment was confirmed (the tax invoice date). Cancelled and unpaid orders are left out.</p></section>`)}
+function gstCSV(per,D){const q=v=>'"'+String(v).replace(/"/g,'""')+'"',r=[];
+ r.push(['GST report',SET.name||'','GST TIN',SET.tin||'','Period',per.label],[]);
+ r.push(['MIRA 205 box','Description','MVR']);[[1,`Sales subject to GST at ${D.rate}% (incl. GST)`],[2,'Zero-rated sales'],[3,'Exempt sales'],[4,'Out of scope sales'],[5,'Total sales'],[6,'Output tax'],[7,'Input tax'],[8,'Deductions'],[9,'GST collected in excess'],[10,'GST liability']]
+  .forEach(([n,l])=>r.push([n,l,(D.b[n]/100).toFixed(2)]));r.push([12,'Plastic bag fee',(D.bag/100).toFixed(2)],[]);
+ r.push(['Invoice no.','Invoice date','Customer','Customer GST TIN',`Value at ${D.rate}% excl. GST`,'GST','Zero-rated','Exempt','Total']);
+ D.rows.forEach(x=>r.push([x.inv,new Date(x.date).toISOString().slice(0,10),x.cust,x.btin,(x.std/100).toFixed(2),(x.tax/100).toFixed(2),(x.zero/100).toFixed(2),(x.exempt/100).toFixed(2),(x.total/100).toFixed(2)]));
+ return r.map(x=>x.map(q).join(',')).join('\n')}
+async function gstPdf(per,D){const brand=rgb(SET.color),pages=[];let ops,y;const grey='0.42 0.47 0.47',X0=48,X1=547;
+ const T=(x,yy,s,{sz=10,b=false,c='0.12 0.16 0.16',al='l'}={})=>{s=pdfTxt(s);const w=tw(s,sz,b);const xx=al==='r'?x-w:x;ops.push(`BT ${c} rg /${b?'F2':'F1'} ${sz} Tf ${xx.toFixed(2)} ${(842-yy).toFixed(2)} Td (${s.replace(/([\\()])/g,'\\$1')}) Tj ET`)};
+ const RECT=(x,yy,w,h,c)=>ops.push(`${c} rg ${x} ${(842-yy-h).toFixed(2)} ${w} ${h} re f`);
+ const page=()=>{ops=[];pages.push(ops);RECT(0,0,595,8,brand);y=48};page();
+ T(X0,y+10,'GST REPORT',{sz:20,b:true,c:brand});T(X1,y+10,per.label,{sz:12,b:true,al:'r'});
+ T(X0,y+30,fit((SET.name||'')+'   |   GST TIN '+(SET.tin||'-')+'   |   Taxable activity '+(SET.gstActNo||'-')+' '+(SET.gstActName||''),X1-X0,9),{sz:9,c:grey});
+ T(X0,y+44,'For MIRA 205 (general goods and services). Due '+dueDate(per.to).toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'})+'.',{sz:9,c:grey});y+=66;
+ const rows=[[1,`Sales of supplies subject to GST at ${D.rate}% (inclusive of GST)`],[2,'Sales of zero-rated supplies'],[3,'Sales of exempt supplies'],[4,'Sales of supplies out of scope of GST'],[5,'Total sales (Boxes 1 to 4)'],[6,`Output tax (Box 1 x ${D.rate}/${100+D.rate})`],[7,'Input tax'],[8,'GST deductions'],[9,'GST collected in excess'],[10,'GST LIABILITY FOR THE PERIOD (6 + 9 - 7 - 8)']];
+ RECT(X0,y,X1-X0,20,brand);T(X0+8,y+14,'Box',{sz:9,b:true,c:'1 1 1'});T(X0+44,y+14,'Description',{sz:9,b:true,c:'1 1 1'});T(X1-8,y+14,'MVR (whole Rufiyaa)',{sz:9,b:true,c:'1 1 1',al:'r'});y+=20;
+ rows.forEach(([n,l],i)=>{if(i%2)RECT(X0,y,X1-X0,19,'0.965 0.975 0.975');const bold=n===10||n===5;T(X0+8,y+13,String(n),{sz:10,b:true});T(X0+44,y+13,l,{sz:10,b:bold});T(X1-8,y+13,wfmt(D.b[n]),{sz:10,b:bold,al:'r'});y+=19});
+ T(X0+8,y+13,'12',{sz:10,b:true});T(X0+44,y+13,'Plastic bag fee for the period',{sz:10});T(X1-8,y+13,wfmt(D.bag),{sz:10,al:'r'});y+=34;
+ T(X0,y,'SALES LISTING (tax invoices by payment date)',{sz:10,b:true});y+=8;
+ const cols=[['Invoice',X0+6,'l'],['Date',X0+120,'l'],['Customer',X0+180,'l'],[`${D.rate}% excl.`,X0+340,'r'],['GST',X0+395,'r'],['Zero/exempt',X0+455,'r'],['Total',X1-6,'r']];
+ const head=()=>{RECT(X0,y,X1-X0,18,'0.92 0.94 0.94');cols.forEach(([s,x,al])=>T(x,y+12,s,{sz:8,b:true,al}));y+=18};head();
+ D.rows.forEach(r=>{if(y>790){page();head()}T(X0+6,y+12,r.inv,{sz:8});T(X0+120,y+12,dshort(r.date),{sz:8});T(X0+180,y+12,fit(r.cust,115,8),{sz:8});
+  T(X0+340,y+12,fmt(r.std),{sz:8,al:'r'});T(X0+395,y+12,fmt(r.tax),{sz:8,al:'r'});T(X0+455,y+12,fmt(r.zero+r.exempt),{sz:8,al:'r'});T(X1-6,y+12,fmt(r.total),{sz:8,al:'r'});y+=16});
+ if(!D.rows.length){T(X0+6,y+14,'No paid orders in this period.',{sz:9,c:grey});y+=20}
+ else{RECT(X0,y,X1-X0,18,'0.92 0.94 0.94');const S=k=>D.rows.reduce((s,r)=>s+r[k],0);T(X0+6,y+12,'Total',{sz:8,b:true});T(X0+340,y+12,fmt(S('std')),{sz:8,b:true,al:'r'});T(X0+395,y+12,fmt(S('tax')),{sz:8,b:true,al:'r'});T(X0+455,y+12,fmt(S('zero')+S('exempt')),{sz:8,b:true,al:'r'});T(X1-6,y+12,fmt(S('total')),{sz:8,b:true,al:'r'})}
+ pages.forEach((p,i)=>{ops=p;T(X0,826,'Prepared from the shop app on '+new Date().toLocaleDateString('en-GB')+'. Check figures against your records before filing.',{sz:7,c:grey});T(X1,826,'Page '+(i+1)+' of '+pages.length,{sz:8,c:grey,al:'r'})});
+ return buildPdf(pages,null)}
+async function saveBlob(blob,fn){if(DL){await DL.save({filename:fn,data:blob});return}const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=fn;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},2000)}
 function vAdminShop(){const g=gate();if(g)return g;FORMVIEW=true;const s=SET,banks=(s.banks&&s.banks.length?s.banks:[{}]);
  const F=(n,l,v,t='text',extra='')=>`<label class="fld">${l}<input name="${n}" type="${t}" value="${esc(v||'')}" ${extra}></label>`;
  return adminWrap('s',`<h1>Shop settings</h1><form class="stack" data-form="settings" style="max-width:860px">
@@ -706,9 +843,15 @@ function vAdminShop(){const g=gate();if(g)return g;FORMVIEW=true;const s=SET,ban
  <label class="fld">Address<input name="address" value="${esc(s.address||'')}"></label></section>
  <section class="card sec"><h2>Bank accounts for transfers</h2><p class="muted" style="margin:-6px 0 0">Shown to customers at checkout.</p><div id="banks" class="stack">${banks.map(bankRow).join('')}</div>
  <button type="button" class="btn sm" data-act="addbank" style="justify-self:start">+ Add account</button></section>
- <section class="card sec"><h2>Orders</h2><div class="grid2">${F('deliveryFee','Delivery fee (MVR)',s.deliveryFee,'text','inputmode="decimal"')}${F('gstRate','GST % (0 for none)',s.gstRate,'text','inputmode="decimal"')}</div>
+ <section class="card sec"><h2>Orders</h2><div class="grid2">${F('deliveryFee','Delivery fee (MVR)',s.deliveryFee,'text','inputmode="decimal"')}</div>
  <label class="fld">Thank-you message <small>Shown when an order is delivered</small><textarea name="thanks">${esc(s.thanks||'')}</textarea></label></section>
- <section class="card sec"><h2>Invoice</h2><div class="grid2">${F('reg','Business registration no.',s.reg)}${F('tin','TIN / GST no.',s.tin)}</div>${F('invoiceNote','Invoice footer note',s.invoiceNote)}</section>
+ <section class="card sec"><h2>GST (Maldives)</h2>
+ <label class="switch"><input type="checkbox" name="gstRegistered" ${gstOn()?'checked':''}> Registered for GST with MIRA (general sector)</label>
+ <p class="muted" style="margin:-4px 0 0;font-size:14px">When on, GST is added at checkout on standard-rated items and delivery, invoices are issued as <b>Tax invoices</b>, and the GST report is filled in for MIRA 205.</p>
+ <div class="grid2">${F('gstRate','GST rate % (general sector)',s.gstRate===undefined||s.gstRate===''?'8':s.gstRate,'text','inputmode="decimal"')}${F('tin','GST TIN',s.tin,'text','placeholder="e.g. 1000000GST501"')}
+ ${F('gstActNo','Taxable activity number',s.gstActNo,'text','placeholder="From your GST registration certificate"')}${F('gstActName','Taxable activity name',s.gstActName,'text','placeholder="e.g. Retail sale of groceries"')}
+ <label class="fld">Taxable period<select name="gstPeriod"><option value="Q" ${s.gstPeriod!=='M'?'selected':''}>Quarterly (taxable sales up to MVR 1 million a month)</option><option value="M" ${s.gstPeriod==='M'?'selected':''}>Monthly</option></select></label>
+ ${F('reg','Business registration no.',s.reg)}</div>${F('invoiceNote','Invoice footer note',s.invoiceNote)}</section>
  <div class="acts"><button class="btn acc">Save settings</button></div></form>`)}
 const bankRow=b=>`<div class="bankrow"><label class="fld">Bank<input name="b_bank" value="${esc(b.bank||'')}" placeholder="e.g. BML"></label><label class="fld">Account name<input name="b_name" value="${esc(b.name||'')}"></label>
  <label class="fld">Account no.<input name="b_no" value="${esc(b.no||'')}" inputmode="numeric"></label><button type="button" class="btn sm bad" data-act="rmbank" aria-label="Remove account" style="min-height:46px">✕</button></div>`;
@@ -717,15 +860,16 @@ function render(){FORMVIEW=false;if(route()!=='admin-shop'){themeDraft=null;pend
  if(API&&API.demo){const want=r.startsWith('admin')?'admin':'customer';if(want!==demoView){demoView=want;API.viewChanged()}}
  if(!API)h='<div class="center"><p class="muted">Loading shop…</p></div>';
  else if(r==='shop')h=vShop();else if(r==='checkout')h=vCheckout();else if(r==='orders')h=vOrders();else if(r==='account')h=vAccount();
- else if(r.startsWith('order-'))h=vOrder(r.slice(6));else if(r==='admin')h=vAdmin();else if(r==='admin-products')h=vAdminProducts();else if(r==='admin-shop')h=vAdminShop();else if(r==='admin-ads')h=vAdminAds();
+ else if(r.startsWith('order-'))h=vOrder(r.slice(6));else if(r==='admin')h=vAdmin();else if(r==='admin-products')h=vAdminProducts();else if(r==='admin-shop')h=vAdminShop();else if(r==='admin-ads')h=vAdminAds();else if(r==='admin-gst')h=vAdminGst();
  else if(r.startsWith('admin-order-'))h=vAdminOrder(r.slice(12));else h=vShop();
- $('app').innerHTML=h+demoBar();document.body.classList.toggle('has-demo',!!(API&&API.demo));
+ const it=r==='checkout'||r.startsWith('admin')?[]:cartItems();
+ $('app').innerHTML=h+demoBar()+(it.length?`<button class="cartfab" data-act="cart">${CART_SVG}<span>View cart · ${it.length} item${it.length===1?'':'s'}</span><span class="num">${M(calc(it).total)}</span></button>`:'');document.body.classList.toggle('has-demo',!!(API&&API.demo));document.body.classList.toggle('has-fab',!!document.querySelector('.cartfab'));
  if(r.startsWith('admin-order-'))loadReceipt(r.slice(12));
  const tr=$('adTrack');if(tr){tr.style.scrollBehavior='auto';tr.scrollLeft=adIdx*tr.clientWidth;tr.style.scrollBehavior='';
   tr.addEventListener('scroll',()=>{const i=Math.round(tr.scrollLeft/Math.max(1,tr.clientWidth));if(i!==adIdx){adIdx=i;document.querySelectorAll('.dots button').forEach((b,k)=>b.setAttribute('aria-current',k===i))}},{passive:true});
   const box=tr.parentElement;['pointerenter','focusin','touchstart'].forEach(ev=>box.addEventListener(ev,()=>adPause=true,{passive:true}));['pointerleave','focusout'].forEach(ev=>box.addEventListener(ev,()=>adPause=false))}
  if($('cartDlg').open)drawCart()}
-function soft(){if(!FORMVIEW)render();else{const b=document.querySelector('.cartbtn .badge');if(b)b.textContent=CART.reduce((s,c)=>s+c.qty,0)}}
+function soft(){if(!FORMVIEW)render();else{const b=document.querySelector('.cartbtn .badge');if(b)b.textContent=CART.length}}
 function adTo(i){const t=$('adTrack');if(!t)return;const n=t.children.length;adIdx=(i+n)%n;t.scrollTo({left:adIdx*t.clientWidth,behavior:'smooth'})}
 setInterval(()=>{if(adPause||document.hidden||matchMedia('(prefers-reduced-motion: reduce)').matches)return;const t=$('adTrack');if(t&&t.children.length>1)adTo(adIdx+1)},5000);
 window.addEventListener('hashchange',()=>{window.scrollTo(0,0);render()});
@@ -738,7 +882,9 @@ async function loadReceipt(id){const box=$('rcView');if(!box)return;try{const r=
  box.textContent='Unsupported file.'}catch(e){box.textContent='Could not load the receipt.'}}
 
 /* ================= actions ================= */
-function addCart(id,d){const c=CART.find(x=>x.id===id);if(c){c.qty+=d;if(c.qty<=0)CART=CART.filter(x=>x!==c)}else if(d>0)CART.push({id,qty:1});saveCart();
+function addCart(key,d){const [id,optId]=String(key).split('~');const p=PRODUCTS.find(x=>x.id===id);if(!p)return;const os=optsOf(p),o=os.find(x=>x.id===optId)||os[0];
+ const c=CART.find(x=>x.id===id&&(x.opt||os[0].id)===o.id);
+ if(c){c.opt=o.id;c.qty=Math.round((+c.qty+d*o.step)*1000)/1000;if(c.qty<=0)CART=CART.filter(x=>x!==c)}else if(d>0)CART.push({id,opt:o.id,qty:firstQty(o)});saveCart();
  if(FORMVIEW&&route()==='checkout')render();else soft();if($('cartDlg').open)drawCart()}
 const authMsg=c=>/invalid-credential|wrong-password|user-not-found|invalid-email/.test(c)?'Wrong mobile number or password.':/email-already-in-use/.test(c)?'This mobile number already has an account. Sign in instead.':/weak-password/.test(c)?'Password must be at least 6 characters.':/too-many/.test(c)?'Too many tries. Wait a few minutes.':'Something went wrong ('+c+').';
 async function setStatus(o,s,extra={}){const h=[...(o.history||[]),{s,at:Date.now()}];
@@ -749,7 +895,7 @@ document.addEventListener('click',async e=>{const a=e.target.closest('[data-act]
  if(act==='ptoggle'){const p=PRODUCTS.find(x=>x.id===id);if(p)API.saveProduct({...p,active:a.checked}).catch(()=>toast('Could not save'));return}
  if(a.tagName==='A'&&!['view-c','view-a'].includes(act))return;
  switch(act){
- case'add':addCart(id,1);break;case'inc':addCart(id,1);break;case'dec':addCart(id,-1);break;
+ case'add':addCart(id,1);break;case'opt':SEL[id]=a.dataset.v;soft();break;case'inc':addCart(id,1);break;case'dec':addCart(id,-1);break;
  case'cart':drawCart();$('cartDlg').showModal();break;case'close-cart':$('cartDlg').close();break;
  case'checkout':$('cartDlg').close();go('checkout');break;
  case'cat':cat=a.dataset.v;render();break;
@@ -775,6 +921,13 @@ document.addEventListener('click',async e=>{const a=e.target.closest('[data-act]
  case'pdel':{const p=PRODUCTS.find(x=>x.id===id);ask('Delete '+p.name+'?','This removes it from the shop. Past orders keep their details.','Delete',()=>API.deleteProduct(id).then(()=>toast('Deleted')).catch(()=>toast('Could not delete')));break}
  case'addbank':$('banks').insertAdjacentHTML('beforeend',bankRow({}));break;
  case'rmbank':a.closest('.bankrow').remove();break;
+ case'addopt':$('optRows').insertAdjacentHTML('beforeend',optRow({unit:'pc'}));break;
+ case'optpreset':$('optRows').insertAdjacentHTML('beforeend',optRow(a.dataset.v==='loose'?{label:'Loose',unit:'kg',step:.5}:{label:'Case of 12',unit:'pc'}));break;
+ case'rmopt':if(document.querySelectorAll('#optRows .optrow').length>1)a.closest('.optrow').remove();else toast('Keep at least one option');break;
+ case'gstsave':{const per=periodsList().find(x=>x.id===gstSel);if(!per)break;const v={};document.querySelectorAll('[data-gstin]').forEach(i=>v[i.dataset.gstin]=i.value.trim());
+  GSTP[per.id]=v;try{await API.saveGstPeriod(per.id,v);toast('Saved');render()}catch(x){toast('Could not save')}break}
+ case'gstpdf':case'gstcsv':{const per=periodsList().find(x=>x.id===gstSel);if(!per)break;const D=gstData(per);
+  try{if(act==='gstpdf')await saveBlob(await gstPdf(per,D),`GST-report-${per.id}.pdf`);else await saveBlob(new Blob([gstCSV(per,D)],{type:'text/csv'}),`GST-sales-${per.id}.csv`)}catch(x){toast(x&&x.code==='declined'?'Download cancelled':'Could not create the file')}break}
  case'theme':tryTheme(a.dataset.a,a.dataset.b);break;
  case'logocol':{const u=pendingLogo!==null?pendingLogo:okImg(SET.logo);if(!u){toast('Upload a logo first');break}
   try{const c=await logoColour(u);if(!c){toast('Could not find a clear colour in the logo');break}tryTheme(c,$('cAcc').value);toast('Main colour taken from your logo')}catch(x){toast('Could not read the logo')}break}
@@ -798,6 +951,7 @@ document.addEventListener('change',async e=>{const t=e.target;
  if(t.id==='logoFile'&&t.files[0]){try{pendingLogo=await shrink(t.files[0],400,'image/png');$('logoPrev').innerHTML=`<img src="${pendingLogo}" alt="">`;if($('pvLogo'))$('pvLogo').innerHTML=`<img src="${pendingLogo}" alt="">`}catch(err){toast('Could not read that image')}}
  if(t.id==='aImg'&&t.files[0]){try{aImg=await shrink(t.files[0],1600,'image/jpeg',.8);$('aPrev').innerHTML=`<img src="${aImg}" alt="">`}catch(err){toast('Could not read that image')}}
  if(t.id==='sortSel'){sortBy=t.value;render()}
+ if(t.id==='gstPer'){gstSel=t.value;render()}
  if(t.id==='pImg'&&t.files[0]){try{pImg=await shrink(t.files[0],800,'image/jpeg',.8);$('pPrev').innerHTML=`<img src="${pImg}" alt="">`}catch(err){toast('Could not read that image')}}
 });
 
@@ -806,13 +960,23 @@ function ask(title,text,btn,cb,field,optional){$('modal').innerHTML=`<form data-
  ${field?`<label class="fld">${esc(field)}<textarea name="v" ${optional?'':'required'}></textarea></label>`:''}<div class="mact"><button type="button" class="btn" data-act="mclose">Back</button><button class="btn pri">${esc(btn)}</button></div></form>`;
  askCb=cb;$('modal').showModal()}
 let askCb=null,pImg=null;
+const optRow=o=>`<div class="optrow"><input type="hidden" name="o_id" value="${esc(o.id||'')}">
+ <label class="fld">Option name<input name="o_label" value="${esc(o.label||'')}" placeholder="e.g. Single, Tray of 30, Loose"></label>
+ <label class="fld">Sold by<select name="o_unit">${Object.entries(UNITS).map(([k,u])=>`<option value="${k}" ${k===(o.unit||'pc')?'selected':''}>${u.n}</option>`).join('')}</select></label>
+ <label class="fld">Price (MVR)<input name="o_price" inputmode="decimal" value="${esc(o.price||'')}" required pattern="[0-9]+([.,][0-9]{1,2})?"></label>
+ <label class="fld">Steps of<input name="o_step" inputmode="decimal" value="${esc(o.unit&&o.unit!=='pc'?o.step:'')}" placeholder="${o.unit&&o.unit!=='pc'?'0.5':'1'}" title="For loose items: how much each + adds, e.g. 0.5 kg"></label>
+ <button type="button" class="btn sm bad" data-act="rmopt" aria-label="Remove option" style="min-height:46px">✕</button></div>`;
 function productModal(p){p=p||{};pImg=okImg(p.image)||'';
  $('modal').innerHTML=`<form data-form="product" data-id="${esc(p.id||'')}"><h2>${p.id?'Edit product':'Add product'}</h2>
  <div style="display:flex;gap:14px;align-items:center"><div class="logoprev" id="pPrev" style="width:96px;height:96px">${pImg?`<img src="${pImg}" alt="">`:'<span class="muted" style="font-size:13px">No photo</span>'}</div>
  <label class="btn sm" for="pImg">Upload photo</label><input type="file" id="pImg" accept="image/*" hidden></div>
  <label class="fld">Name<input name="name" value="${esc(p.name||'')}" required></label>
- <div class="grid2"><label class="fld">Price (MVR)<input name="price" inputmode="decimal" value="${esc(p.price||'')}" required pattern="[0-9]+([.,][0-9]{1,2})?"></label>
- <label class="fld">Category<input name="category" value="${esc(p.category||'')}" list="catlist"></label></div><datalist id="catlist">${[...new Set(PRODUCTS.map(x=>x.category).filter(Boolean))].map(c=>`<option value="${esc(c)}">`).join('')}</datalist>
+ <label class="fld">Category<input name="category" value="${esc(p.category||'')}" list="catlist" placeholder="e.g. Rice & flour"></label>
+ <label class="fld">GST<select name="gst">${Object.entries(GSTT).map(([k,n])=>`<option value="${k}" ${gstOf(p)===k?'selected':''}>${k==='S'?'Standard rate ('+(gstRate()||8)+'%)':n}</option>`).join('')}</select>
+ <small>Zero-rated essentials include rice, sugar, flour, salt, milk, cooking oil, eggs, tea leaves, fish packed in the Maldives, potatoes, onions, fruits, bread and more. Check MIRA's GST Food Guide (MIRA G821) if unsure.</small></label>
+ <div class="stack" style="gap:8px"><b>How it's sold</b><span class="muted" style="font-size:13px;margin-top:-6px">Add one line for each way to buy it, e.g. <i>Loose</i> sold by kg, and <i>5 kg bag</i> sold by piece.</span>
+ <div id="optRows" class="stack" style="gap:8px">${(p.id?optsOf(p):[{id:'',label:'',unit:'pc',price:'',step:1}]).map(optRow).join('')}</div>
+ <div class="acts"><button type="button" class="btn sm" data-act="addopt">+ Add option</button><button type="button" class="btn sm" data-act="optpreset" data-v="loose">+ Loose by kg</button><button type="button" class="btn sm" data-act="optpreset" data-v="pack">+ Pack / case</button></div></div><datalist id="catlist">${[...new Set(PRODUCTS.map(x=>x.category).filter(Boolean))].map(c=>`<option value="${esc(c)}">`).join('')}</datalist>
  <label class="fld">Description<textarea name="desc">${esc(p.desc||'')}</textarea></label>
  <label class="switch"><input type="checkbox" name="active" ${p.active!==false?'checked':''}> In stock</label>
  <div class="mact"><button type="button" class="btn" data-act="mclose">Cancel</button><button class="btn pri">Save product</button></div></form>`;
@@ -828,19 +992,23 @@ document.addEventListener('submit',async e=>{const f=e.target,k=f.dataset.form;i
  case'order':{const it=cartItems();if(!it.length)break;const t=calc(it);
   // prices are taken from the live product list, not the bag
   const id=new Date().toISOString().slice(2,10).replace(/-/g,'')+'-'+rid(4),now=Date.now();
-  const o={id,uid:ME.uid,customer:{name:v('name'),phone:ME.phone,address:v('address'),note:v('note')},items:it.map(i=>({id:i.id,name:i.name,price:String(i.price),qty:i.qty})),
-   subtotal:t.sub,delivery:t.del,tax:t.tax,taxRate:t.rate,total:t.total,status:'awaiting_payment',history:[{s:'awaiting_payment',at:now}],createdAt:now,updatedAt:now};
+  const o={id,uid:ME.uid,customer:{name:v('name'),phone:ME.phone,address:v('address'),note:v('note'),business:v('business'),btin:v('btin')},items:it.map(i=>({id:i.id,opt:i.opt,name:i.name,unit:i.unit,price:String(i.price),qty:i.qty,gst:gstOn()?i.gst:'S'})),
+   subtotal:t.sub,delivery:t.del,tax:t.tax,taxRate:t.rate,total:t.total,gstStd:t.std,gstZero:t.zero,gstExempt:t.exempt,gstRegistered:gstOn(),status:'awaiting_payment',history:[{s:'awaiting_payment',at:now}],createdAt:now,updatedAt:now};
   await API.placeOrder(o);if(v('address')!==ME.address)API.saveProfile({name:v('name'),address:v('address')}).catch(()=>{});
   CART=[];saveCart();toast('Order placed');go('order-'+id);break}
  case'receipt':{const o=ORDERS.find(x=>x.id===f.dataset.id);if(!o||!rcData)break;const now=Date.now();
   await API.putReceipt(o.id,{...rcData,at:now});
   await API.updateOrder(o.id,{status:'payment_submitted',history:[...(o.history||[]),{s:'payment_submitted',at:now}],receiptAt:now,updatedAt:now});rcData=null;toast('Receipt sent');break}
- case'settings':{const s={...SET};['name','tagline','phone','viber','email','hours','address','deliveryFee','gstRate','thanks','reg','tin','invoiceNote'].forEach(n=>s[n]=v(n));
+ case'settings':{const s={...SET};['name','tagline','phone','viber','email','hours','address','deliveryFee','gstRate','thanks','reg','tin','invoiceNote','gstActNo','gstActName','gstPeriod'].forEach(n=>s[n]=v(n));s.gstRegistered=fd.get('gstRegistered')==='on';
   s.color=okColor(v('color'));s.accent=okAcc(v('accent'));themeDraft=null;if(pendingLogo!==null)s.logo=pendingLogo;delete s.sample;
   const bb=fd.getAll('b_bank'),bn=fd.getAll('b_name'),bo=fd.getAll('b_no');s.banks=bb.map((b,i)=>({bank:String(b).trim(),name:String(bn[i]).trim(),no:String(bo[i]).trim()})).filter(b=>b.no||b.bank);
   await API.saveSettings(s);pendingLogo=null;toast('Settings saved');break}
  case'product':{const id=f.dataset.id||('P'+rid(8));const old=PRODUCTS.find(x=>x.id===id)||{};
-  const p={...old,id,name:v('name'),price:(L(v('price'))/100).toFixed(2),category:v('category'),desc:v('desc'),active:fd.get('active')==='on',image:pImg||'',createdAt:old.createdAt||Date.now()};
+  const ol=fd.getAll('o_label'),ou=fd.getAll('o_unit'),op=fd.getAll('o_price'),os=fd.getAll('o_step'),oi=fd.getAll('o_id');
+  const options=ol.map((l,i)=>{const u=UNITS[ou[i]]?ou[i]:'pc';const st=parseFloat(String(os[i]).replace(',','.'));
+   return{id:String(oi[i]||'').trim()||('o'+rid(5)),label:String(l).trim(),unit:u,price:(L(op[i])/100).toFixed(2),step:u==='pc'?1:(st>0?st:UNITS[u].step)}}).filter(o=>L(o.price)>0);
+  if(!options.length){toast('Add a price');break}
+  const p={...old,id,name:v('name'),price:(Math.min(...options.map(o=>L(o.price)))/100).toFixed(2),options,gst:['S','Z','E'].includes(v('gst'))?v('gst'):'S',category:v('category'),desc:v('desc'),active:fd.get('active')==='on',image:pImg||'',createdAt:old.createdAt||Date.now()};
   await API.saveProduct(p);$('modal').close();toast('Product saved');break}
  case'ad':{if(!aImg){toast('Upload a banner image first');break}const id=f.dataset.id||('A'+rid(8));const old=ADS.find(x=>x.id===id)||{};
   await API.saveAd({...old,id,image:aImg,title:v('title'),text:v('text'),cat:v('cat'),active:fd.get('active')==='on',order:old.order||(Math.max(0,...ADS.map(x=>x.order||0))+1)});
@@ -858,7 +1026,8 @@ async function start(){const cfg=window.FIREBASE_CONFIG;
  if(!API.demo&&!window.claude){}
  if(window.claude&&window.claude.use)claude.use('downloads').then(d=>{DL=d}).catch(()=>{});
  API.watchSettings(s=>{SET=s||{};READY.set=true;soft()});
- API.watchProducts(p=>{PRODUCTS=Array.isArray(p)?p:[];READY.prod=true;CART=CART.filter(c=>PRODUCTS.some(x=>x.id===c.id));soft()});
+ API.watchProducts(p=>{PRODUCTS=Array.isArray(p)?p:[];READY.prod=true;
+  CART=CART.filter(c=>{const x=PRODUCTS.find(y=>y.id===c.id);if(!x)return false;const os=optsOf(x);if(!os.some(o=>o.id===c.opt))c.opt=os[0].id;return true});soft()});
  if(API.watchAds)API.watchAds(a=>{ADS=Array.isArray(a)?a:[];soft()});
  API.watchOrders(o=>{ORDERS=Array.isArray(o)?o:[];soft()});
  API.onAuth(onMe)}

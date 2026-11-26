@@ -35,6 +35,11 @@ service cloud.firestore {
       allow write: if isAdmin();
     }
 
+    // GST report figures per taxable period (input tax etc.): admin only
+    match /gstPeriods/{id} {
+      allow read, write: if isAdmin();
+    }
+
     // Customer profiles: the customer and admins
     match /customers/{uid} {
       allow read, write: if signedIn() && (request.auth.uid == uid || isAdmin());
