@@ -1,6 +1,5 @@
 rules_version = '2';
-// Rules for the ONLINE SHOP. If the Day End Sales Report uses the same Firebase
-// project, keep its "reports" block below too (one rules file per database).
+// One rules file for both apps in this repo: the ONLINE SHOP (/) and the DAY END SHEET (/eod).
 service cloud.firestore {
   match /databases/{database}/documents {
 
@@ -72,19 +71,32 @@ service cloud.firestore {
       allow delete: if isAdmin();
     }
 
-    // ---- Day End Sales Report (only if it shares this project) ----
+    // ================= DAY END SHEET (/eod) =================
+    // Kept apart from the shop: its own staff list and its own reports.
+    // eodStaff/{uid}: { role: "admin" | "staff", name }
+    function isEodStaff() {
+      return signedIn() && exists(/databases/$(database)/documents/eodStaff/$(request.auth.uid));
+    }
+    function isEodAdmin() {
+      return isEodStaff() && get(/databases/$(database)/documents/eodStaff/$(request.auth.uid)).data.role == 'admin';
+    }
     function pad(n) { return n < 10 ? '0' + string(n) : string(n); }
+    // Today's date in the Maldives (UTC+5)
     function todayId() {
-      let t = request.time + duration.value(5, 'h');   // Maldives UTC+5
+      let t = request.time + duration.value(5, 'h');
       return string(t.year()) + '-' + pad(t.month()) + '-' + pad(t.day());
     }
-    match /reports/{date} {
-      allow read: if signedIn() && (isAdmin() || !exists(/databases/$(database)/documents/customers/$(request.auth.uid)));
-      allow create, update: if signedIn()
-        && !exists(/databases/$(database)/documents/customers/$(request.auth.uid))
+    match /eodStaff/{uid} {
+      allow read: if signedIn() && (request.auth.uid == uid || isEodAdmin());
+      allow write: if isEodAdmin();
+    }
+    // One report per day, id = YYYY-MM-DD. Staff: today only. EOD admins: any day.
+    match /eodReports/{date} {
+      allow read: if isEodStaff();
+      allow create, update: if isEodStaff()
         && request.resource.data.date == date
-        && (isAdmin() || date == todayId());
-      allow delete: if isAdmin();
+        && (isEodAdmin() || date == todayId());
+      allow delete: if isEodAdmin();
     }
   }
 }

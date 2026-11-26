@@ -52,4 +52,25 @@ Push this folder to GitHub → vercel.com → **Add New → Project** → import
 ## Notes
 - Prices in an order are taken from the product list when the customer checks out. Always check the amount on the receipt against the order total before you confirm payment.
 - Receipt PDFs are limited to 650 KB; photos are resized automatically.
-- If the Day End Sales Report uses the same Firebase project, its rules are already included at the bottom of `firestore.rules`; customer accounts cannot read or write day-end reports.
+
+---
+
+# Day End Sheet (`/eod`)
+
+A separate app in the same repo and the same Firebase project, at **`https://your-site.vercel.app/eod`**.
+It does not link to the shop, and the shop does not link to it. It shares only `firebase-config.js` and the Firebase project.
+
+**Kept apart from the shop**
+- Reports are saved in their own collection **`eodReports`** (one document per day, `YYYY-MM-DD`).
+- Access is controlled by its own list **`eodStaff`**. Shop admins and shop customers have **no** access unless they are added here.
+- Roles: **admin** can open and change any day (including opening petty cash) and manage staff; **staff** can only fill in and save **today's** sheet. Enforced by `firestore.rules`.
+
+**What it does:** spreadsheet-style day end in MVR: opening petty cash (locked, from the previous day), today's drawer count by denomination, petty cash for tomorrow by denomination, balance to deposit per note/coin, card sales, transfers, pay outs and expenses from the drawer, cash sales, total sales, POS check, notes, saved reports, copy and CSV export. Works on phones.
+
+## Set up the day end sheet
+1. Make sure `firestore.rules` from this repo is published (it contains both apps' rules).
+2. Open `/eod`, choose **Create an account** (name, mobile number, password). You'll see **Waiting for access** and a **staff code**.
+3. In the Firebase console → **Firestore → Data** → create collection **`eodStaff`** → document ID = that staff code → fields `role` = `admin`, `name` = your name. (Only needed once, for the first admin.)
+4. Reload `/eod`. You're in as **Admin**. From now on add people in the app: they create an account on `/eod`, send you their staff code, and you add it under **Staff** (choose Staff or Admin). Remove access with ×.
+
+Same mobile number + password works for both apps if a person uses both (one Firebase account), but each app has its own access list.
